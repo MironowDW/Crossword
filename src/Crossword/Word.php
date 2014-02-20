@@ -53,7 +53,7 @@ class Word
         $this->rows = new Row();
         $this->columns = new Column();
 
-        $this->validate();
+        $this->validate($word);
     }
 
     /**
@@ -166,16 +166,14 @@ class Word
      *
      * @throws \Exception
      */
-    public function validate()
+    public function validate($word)
     {
-        $word = $this->getWord();
-
         if(empty($word)) {
-            throw new \Exception('Слово не может быть пустым.');
+            throw new Exception('Слово не может быть пустым.');
         }
 
-        if(!preg_match('/[a-zа-я]/ui', $word)) {
-            throw new \Exception('Слово должно состоять из букв Русского и Английского алфавита. (' . $word . ')');
+        if(!preg_match('/^[a-zа-я]+$/ui', $word)) {
+            throw new Exception('Слово должно состоять из букв Русского и Английского алфавита. (' . $word . ')');
         }
     }
 
