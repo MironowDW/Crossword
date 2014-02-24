@@ -4,4 +4,10 @@
             <directory>./CrosswordTest</directory>
         </testsuite>
     </testsuites>
+
+    <filter>
+        <blacklist>
+            <directory suffix=".php">../tests</directory>
+        </blacklist>
+    </filter>
 </phpunit>

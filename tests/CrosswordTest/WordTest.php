@@ -22,6 +22,11 @@ class WordTest extends \PHPUnit_Framework_TestCase
         $this->word->validate($word);
     }
 
+    public function testValidate()
+    {
+        $this->assertNull($this->word->validate('test'));
+    }
+
     public function failWordsProvider()
     {
         return array(
