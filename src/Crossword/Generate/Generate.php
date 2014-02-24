@@ -2,6 +2,9 @@
 
 namespace Crossword\Generate;
 
+use \Crossword\Crossword;
+use \Crossword\Word;
+
 /**
  * Базовый класс генерации кроссворда
  *
@@ -37,7 +40,7 @@ abstract class Generate
     /**
      * @param \Crossword\Crossword $crossword
      */
-    public function __construct(\Crossword\Crossword $crossword)
+    public function __construct(Crossword $crossword)
     {
         $this->crossword = $crossword;
     }
@@ -80,7 +83,7 @@ abstract class Generate
      * @abstract
      * @param Word $word
      */
-    abstract protected function positionWord(\Crossword\Word $word);
+    abstract protected function positionWord(Word $word);
 
     /**
      * @static
@@ -89,7 +92,7 @@ abstract class Generate
      * @return Generate
      * @throws \Exception
      */
-    static public function factory($generateType, \Crossword\Crossword $crossword)
+    static public function factory($generateType, Crossword $crossword)
     {
         $generateType = ucfirst($generateType);
         $className = 'Crossword\\Generate\\' . $generateType;

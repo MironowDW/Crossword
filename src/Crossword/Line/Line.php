@@ -3,6 +3,7 @@
 namespace Crossword\Line;
 
 use \Crossword\Field;
+use \Crossword\Word;
 
 /**
  * Линия кроссворда (Строка или колонка)
@@ -104,7 +105,7 @@ abstract class Line
      * @param string $place Тип размещения SELF::PLACE_*
      * @return bool Расположено слово или нет
      */
-    public function position(\Crossword\Word $_word, $isFirstWord = false, $place = self::PLACE_RANDOM)
+    public function position(Word $_word, $isFirstWord = false, $place = self::PLACE_RANDOM)
     {
         $word = $_word->getWord();
         $fields = $this->getFields();

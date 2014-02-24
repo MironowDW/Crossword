@@ -2,6 +2,7 @@
 
 namespace Crossword;
 
+use \Crossword\Generate\Generate;
 use \Crossword\Collection\Word;
 use \Crossword\Collection\Column;
 use \Crossword\Collection\Row;
@@ -73,9 +74,9 @@ class Crossword
      * @params string $type Тип генерации (CrosswordGenerate::RANDOM, CrosswordGenerate::BASE_LINE, ...)
      * @return bool Сгенерирован кроссворд или нет
      */
-    public function generate($type = \Crossword\Generate\Generate::TYPE_RANDOM)
+    public function generate($type = Generate::TYPE_RANDOM)
     {
-        $classGenerate = \Crossword\Generate\Generate::factory($type, $this);
+        $classGenerate = Generate::factory($type, $this);
         return $classGenerate->generate();
     }
 

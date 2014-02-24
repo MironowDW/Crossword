@@ -2,10 +2,14 @@
 
 namespace Crossword\Generate;
 
+use \Crossword\Generate\Generate;
+use \Crossword\Line\Line;
+use \Crossword\Word;
+
 /**
  * Генерация кроссворда в случайном порядке
  */
-class Random extends \Crossword\Generate\Generate
+class Random extends Generate
 {
 
     /**
@@ -24,7 +28,7 @@ class Random extends \Crossword\Generate\Generate
 
         if(!empty($word)) {
             $this->prevWord = $word;
-            $this->currentLineType = \Crossword\Line\Line::TYPE_COLUMN;
+            $this->currentLineType = Line::TYPE_COLUMN;
 
             $centerRow->position($word, true);
             return true;
@@ -32,14 +36,14 @@ class Random extends \Crossword\Generate\Generate
         return false;
     }
 
-    protected function positionWord(\Crossword\Word $word)
+    protected function positionWord(Word $word)
     {
-        if($this->currentLineType == \Crossword\Line\Line::TYPE_ROW) {
+        if($this->currentLineType == Line::TYPE_ROW) {
             $line = $this->prevWord->getRows()->getRandom();
-            $this->currentLineType = \Crossword\Line\Line::TYPE_COLUMN;
+            $this->currentLineType = Line::TYPE_COLUMN;
         } else {
             $line = $this->prevWord->getColumns()->getRandom();
-            $this->currentLineType = \Crossword\Line\Line::TYPE_ROW;
+            $this->currentLineType = Line::TYPE_ROW;
         }
 
         if(!empty($line)) {

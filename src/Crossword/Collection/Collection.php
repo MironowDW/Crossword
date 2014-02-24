@@ -2,6 +2,8 @@
 
 namespace Crossword\Collection;
 
+use \Crossword\Iterator;
+
 /**
  * Коллекция для колонок, строк, слов.
  */
@@ -17,7 +19,7 @@ class Collection implements \IteratorAggregate
      * @return \Crossword\Iterator
      */
     public function getIterator() {
-        return new \Crossword\Iterator($this->items);
+        return new Iterator($this->items);
     }
 
     /**

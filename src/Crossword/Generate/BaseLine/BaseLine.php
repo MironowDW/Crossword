@@ -2,10 +2,14 @@
 
 namespace Crossword\Generate\BaseLine;
 
+use \Crossword\Generate\Generate;
+use \Crossword\Line\Line;
+use \Crossword\Word;
+
 /**
  * Генерация кроссворда на основе 1 слова
  */
-abstract class BaseLine extends \Crossword\Generate\Generate
+abstract class BaseLine extends Generate
 {
 
     /**
@@ -33,13 +37,13 @@ abstract class BaseLine extends \Crossword\Generate\Generate
         if(!empty($word)) {
             $this->firstWord = $word;
 
-            $centerLine->position($word, true, \Crossword\Line\Line::PLACE_LEFT);
+            $centerLine->position($word, true, Line::PLACE_LEFT);
             return true;
         }
         return false;
     }
 
-    protected function positionWord(\Crossword\Word $word)
+    protected function positionWord(Word $word)
     {
         $line = $this->getBaseLine();
 
