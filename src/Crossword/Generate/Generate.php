@@ -82,6 +82,7 @@ abstract class Generate
      *
      * @abstract
      * @param Word $word
+     * @return
      */
     abstract protected function positionWord(Word $word);
 

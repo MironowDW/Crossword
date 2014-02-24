@@ -40,7 +40,7 @@ class Field
     }
 
     /**
-     * @params string $line column|row
+     * @param $line string column|row
      * @return Field Следующее поле
      */
     public function getNext($line)
@@ -49,7 +49,8 @@ class Field
     }
 
     /**
-     * @params string $line column|row
+     * @param $line string ('column'|'row')
+     * @param $line
      * @return Field Предыдущее поле
      */
     public function getPrev($line)
@@ -61,7 +62,7 @@ class Field
      * @param string $line column|row
      * @param string $direction prev|next
      * @return Field Предыдущее или следующее поле
-     * @throws Exception
+     * @throws \Exception
      */
     protected function getNeighbor($line, $direction)
     {

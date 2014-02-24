@@ -70,8 +70,8 @@ class Crossword
     /**
      * Автоматически генерирует кроссворд из списка слов
      * Тип генерации можно выбрать из класса CrosswordGenerate, там же можно посмотреть как написать свой тип.
-     * 
-     * @params string $type Тип генерации (CrosswordGenerate::RANDOM, CrosswordGenerate::BASE_LINE, ...)
+     *
+     * @param string $type 'Тип генерации (CrosswordGenerate::RANDOM, CrosswordGenerate::BASE_LINE, ...)'
      * @return bool Сгенерирован кроссворд или нет
      */
     public function generate($type = Generate::TYPE_RANDOM)
