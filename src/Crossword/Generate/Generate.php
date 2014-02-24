@@ -58,8 +58,7 @@ abstract class Generate
             while($iteration != 0) {
                 $words = $crossword->getWords()->notUsed();
                 if($words->notEmpty()) {
-                    $word = $words->getRandom();
-                    $this->positionWord($word);
+                    $this->positionWord($words->getRandom());
                 } else {
                     break;
                 }

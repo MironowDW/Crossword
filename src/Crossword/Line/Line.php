@@ -129,7 +129,7 @@ abstract class Line
         // Сортируем смещения в зависимости от размещения
         if(empty($offsets)) {
             $offsets[] = 0;
-        } elseif(count($offsets > 1)) {
+        } elseif(count($offsets) > 1) {
             switch($place) {
                 case self::PLACE_RANDOM:
                     shuffle($offsets);

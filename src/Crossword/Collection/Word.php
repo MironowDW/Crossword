@@ -62,7 +62,7 @@ class Word extends Collection
     }
 
     /**
-     * @return bool|CrosswordWord Случайное слово из коллекции
+     * @return bool|\Crossword\Word Случайное слово из коллекции
      */
     public function getRandom() {
         $words = $this->getWords();
