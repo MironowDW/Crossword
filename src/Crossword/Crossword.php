@@ -188,4 +188,19 @@ class Crossword
         $this->rowsCount = (int) $rowsCount;
     }
 
+    public function toArray()
+    {
+        $array = [];
+        $index = 0;
+        foreach ($this->getRows() as $row) {
+            foreach ($row->getFields() as $field) {
+                $array[$index][] = ($field->getChar() ? $field->getChar() : ' ');
+            }
+
+            $index++;
+        }
+
+        return $array;
+    }
+
 }

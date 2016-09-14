@@ -33,6 +33,11 @@ abstract class Generate
     const TYPE_BASE_LINE_ROW = 'baseLine\\Row';
 
     /**
+     * Тип генерации. На основе одного числа
+     */
+    const TYPE_SEED = 'seed';
+
+    /**
      * @var \Crossword\Crossword
      */
     protected $crossword;

@@ -166,7 +166,7 @@ class Word
      *
      * @throws \Exception
      */
-    public function validate($word)
+    protected function validate($word)
     {
         if(empty($word)) {
             throw new Exception('Слово не может быть пустым.');

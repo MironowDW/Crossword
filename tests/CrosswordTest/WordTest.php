@@ -5,26 +5,23 @@ namespace CrosswordTest;
 class WordTest extends \PHPUnit_Framework_TestCase
 {
 
-    /** @var \Crossword\Word */
-    private $word;
-
-    public function setUp()
-    {
-        $this->word = $this->getMock('\Crossword\Word', null, array(), '', false);
-    }
-
     /**
+     * @test
+     *
      * @expectedException \Crossword\Exception
      * @dataProvider failWordsProvider
      */
-    public function testFailValidate($word)
+    public function mustThrowExceptionOnFailWord($word)
     {
-        $this->word->validate($word);
+        new \Crossword\Word($word);
     }
 
-    public function testValidate()
+    /**
+     * @test
+     */
+    public function noThrowExceptionOnCorrectWord()
     {
-        $this->word->validate('test');
+        new \Crossword\Word('test');
     }
 
     public function failWordsProvider()
