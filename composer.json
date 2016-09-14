@@ -1,0 +1,19 @@
+{
+  "name": "mironovdv/crossword",
+  "description": "Crossword generator",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mironov Dmitriy",
+      "email": "mironovdv@bk.ru"
+    }
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "4.*"
+  },
+  "autoload": {
+    "psr-0": {
+      "Crossword": "src/"
+    }
+  }
+}
