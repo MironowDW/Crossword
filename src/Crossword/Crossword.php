@@ -40,6 +40,11 @@ class Crossword
     protected $rows;
 
     /**
+     * @var array
+     */
+    protected $originWords;
+
+    /**
      * @var Word Коллекция слов
      */
     protected $words;
@@ -53,8 +58,7 @@ class Crossword
     {
         $this->setColumnsCount($colsCount);
         $this->setRowsCount($rowsCount);
-
-        $this->words = new Word($words);
+        $this->setOriginWords($words);
 
         $this->init();
     }
@@ -64,20 +68,33 @@ class Crossword
      */
     protected function init()
     {
+        $this->words = new Word($this->originWords);
         $this->generateFields();
+    }
+
+    public function clear()
+    {
+        $this->init();
     }
 
     /**
      * Автоматически генерирует кроссворд из списка слов
      * Тип генерации можно выбрать из класса CrosswordGenerate, там же можно посмотреть как написать свой тип.
      *
-     * @param string $type 'Тип генерации (CrosswordGenerate::RANDOM, CrosswordGenerate::BASE_LINE, ...)'
+     * @param string $type Тип генерации (CrosswordGenerate::RANDOM, CrosswordGenerate::BASE_LINE, ...)
+     * @param bool $needAllWords
+     * @param int $maxGenerateAttempts Max count of crossword generation
+     * @param int $maxWordPositionAttempts Max count of words positioning
+     *
      * @return bool Сгенерирован кроссворд или нет
      */
-    public function generate($type = Generate::TYPE_RANDOM)
-    {
-        $classGenerate = Generate::factory($type, $this);
-        return $classGenerate->generate();
+    public function generate(
+        $type = Generate::TYPE_RANDOM,
+        $needAllWords = false,
+        $maxGenerateAttempts = Generate::MAX_GENERATE_ATTEMPTS,
+        $maxWordPositionAttempts = Generate::MAX_WORD_POSITION_ATTEMPTS
+    ) {
+        return Generate::factory($type, $this)->generate($needAllWords, $maxGenerateAttempts, $maxWordPositionAttempts);
     }
 
     /**
@@ -186,6 +203,22 @@ class Crossword
     public function setRowsCount($rowsCount)
     {
         $this->rowsCount = (int) $rowsCount;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOriginWords()
+    {
+        return $this->originWords;
+    }
+
+    /**
+     * @param array $originWords
+     */
+    public function setOriginWords($originWords)
+    {
+        $this->originWords = $originWords;
     }
 
     public function toArray()

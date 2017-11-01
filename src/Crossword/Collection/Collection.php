@@ -7,7 +7,7 @@ use \Crossword\Iterator;
 /**
  * Коллекция для колонок, строк, слов.
  */
-class Collection implements \IteratorAggregate
+class Collection implements \IteratorAggregate, \Countable
 {
 
     /**
@@ -66,4 +66,11 @@ class Collection implements \IteratorAggregate
         throw new \Exception('Неверно задан индекс. (' . $index . ')');
     }
 
+    /**
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->items);
+    }
 }

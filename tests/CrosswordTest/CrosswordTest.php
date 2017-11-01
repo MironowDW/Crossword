@@ -110,4 +110,27 @@ class CrosswordTest extends \PHPUnit_Framework_TestCase
             'Wrong crossword generated: ' . var_export($crossword->toArray(), true)
         );
     }
+
+    /**
+     * @test
+     */
+    public function mustGeneratedRandomCrosswordByMiddleWords()
+    {
+        $words = [
+            'google',
+            'facebook',
+            'twitter',
+            'internet',
+            'mark',
+            'instagram',
+            'intel',
+            'global',
+            'linux',
+        ];
+
+        $crossword = new \Crossword\Crossword(20, 20, $words);
+        $isGenerated = $crossword->generate(\Crossword\Generate\Generate::TYPE_RANDOM, true);
+
+        $this->assertTrue($isGenerated, 'Random with middle words not generated');
+    }
 }

@@ -17,6 +17,17 @@ use \Crossword\Word;
  */
 abstract class Generate
 {
+
+    /**
+     * Max count of crossword generation
+     */
+    const MAX_GENERATE_ATTEMPTS = 100;
+
+    /**
+     * Max count of words positioning
+     */
+    const MAX_WORD_POSITION_ATTEMPTS = 100;
+
     /**
      * Тип генерации. Рандомный
      */
@@ -51,27 +62,55 @@ abstract class Generate
     }
 
     /**
-     * @return bool Сгенерирован кроссворд или нет
+     * @param bool $needAllWords Generate crossword with all words
+     * @param int $maxGenerateAttempts Max count of crossword generation
+     * @param int $maxWordPositionAttempts Max count of words positioning
+     *
+     * @return bool Return true if crossword is generated
      */
-    public function generate()
-    {
-        $crossword = $this->crossword;
+    public function generate(
+        $needAllWords = false,
+        $maxGenerateAttempts = self::MAX_GENERATE_ATTEMPTS,
+        $maxWordPositionAttempts = self::MAX_WORD_POSITION_ATTEMPTS
+    ) {
+        while ($maxGenerateAttempts != 0) {
+            $crossword = $this->crossword;
+            $isPosition = $this->positionFirstWord();
+            $maxWordPositionAttemptsInGenerate = $maxWordPositionAttempts;
 
-        $isPosition = $this->positionFirstWord();
-        if($isPosition) {
-            $iteration = 100;
-            while($iteration != 0) {
+            if (!$isPosition) {
+                $maxGenerateAttempts--;
+                $this->crossword->clear();
+                continue;
+            }
+
+            while ($maxWordPositionAttemptsInGenerate != 0) {
                 $words = $crossword->getWords()->notUsed();
-                if($words->notEmpty()) {
+
+                if ($words->notEmpty()) {
                     $this->positionWord($words->getRandom());
                 } else {
                     break;
                 }
-                $iteration--;
+
+                $maxWordPositionAttemptsInGenerate--;
             }
+
+            // If need all words and we have not used - regenerate crossword
+            if ($needAllWords && count($crossword->getWords()->notUsed())) {
+                $maxGenerateAttempts--;
+                $this->crossword->clear();
+                continue;
+            }
+
             return true;
         }
-        return false;
+
+        if ($needAllWords && count($this->crossword->getWords()->notUsed())) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
