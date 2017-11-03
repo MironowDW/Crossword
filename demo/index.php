@@ -1,0 +1,1 @@
+<?php echo include 'index.phtml';

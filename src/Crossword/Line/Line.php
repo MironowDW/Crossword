@@ -244,8 +244,13 @@ abstract class Line
                     // Блокируем поля по бокам, они больше не будут использоваться
                     if($isFirst || $isLast) {
                         $neighbor = $isFirst ? $field->getPrev($type) : $field->getNext($type);
+
                         if(!empty($neighbor)) {
                             $neighbor->setBlock(true);
+                        }
+
+                        if ($isFirst && $neighbor) {
+                            $neighbor->addWordsStarted($_word);
                         }
                     }
 

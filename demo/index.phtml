@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Кроссворд</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+    <?php $crossword = require './generate.php'; ?>
+
+    <table>
+        <?php foreach($crossword->getRows() as $row): ?>
+            <tr>
+                <?php foreach($row->getFields() as $field): ?>
+
+                    <td class="<?php echo $field->getChar() ? 'filled' : 'empty' ?>">
+                        <?php
+                        if ($field->getChar()) {
+                            echo $field->getChar();
+                        }
+
+                        foreach ($field->getWordsStarted() as $word) {
+                            echo $word->getParams()['number'];
+                        }
+                        ?>
+                    </td>
+                <?php endforeach; ?>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+
+    <ul>
+        <?php foreach ($crossword->getWords() as $word) { ?>
+            <li>
+                <?php echo $word->getWord() ?> - <?php echo $word->getParams()['question'] ?>
+            </li>
+        <?php } ?>
+    </ul>
+
+</body>
+
+<style>
+    td {
+        width: 20px;
+        height: 20px;
+        text-align: center;
+    }
+    td.filled {
+        border: 1px black solid;
+        background-color: #cfcfcf;
+    }
+</style>
+
+</html>

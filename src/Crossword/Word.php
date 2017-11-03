@@ -19,6 +19,11 @@ class Word
     protected $word;
 
     /**
+     * @var array
+     */
+    protected $params;
+
+    /**
      * @var Row|null
      */
     protected $rows = null;
@@ -44,12 +49,16 @@ class Word
     protected $isUsed;
 
     /**
+     * Word constructor.
+     *
      * @param $word
+     * @param array $params
      */
-    public function __construct($word)
+    public function __construct($word, $params = [])
     {
         $this->setWord($word);
 
+        $this->params = $params;
         $this->rows = new Row();
         $this->columns = new Column();
 
@@ -146,6 +155,22 @@ class Word
     }
 
     /**
+     * @return array
+     */
+    public function getParams()
+    {
+        return $this->params;
+    }
+
+    /**
+     * @param array $params
+     */
+    public function setParams($params)
+    {
+        $this->params = $params;
+    }
+
+    /**
      * @return bool
      */
     public function isUsed()
@@ -169,11 +194,11 @@ class Word
     protected function validate($word)
     {
         if(empty($word)) {
-            throw new Exception('Слово не может быть пустым.');
+            throw new Exception('Word is empty!');
         }
 
-        if(!preg_match('/^[a-zа-я]+$/ui', $word)) {
-            throw new Exception('Слово должно состоять из букв Русского и Английского алфавита. (' . $word . ')');
+        if(!preg_match('/^\w+$/ui', $word)) {
+            throw new Exception('Wrong word (/^\w+$/ui) (' . $word . ')');
         }
     }
 

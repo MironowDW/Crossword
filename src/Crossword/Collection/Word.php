@@ -13,9 +13,15 @@ class Word extends Collection
      */
     public function __construct(array $words = array())
     {
-        foreach($words as $word)
-        {
-            parent::add(new \Crossword\Word($word));
+        foreach($words as $key => $word) {
+            $params = [];
+
+            if (is_array($word)) {
+                $params = $word;
+                $word = $key;
+            }
+
+            parent::add(new \Crossword\Word($word, $params));
         }
     }
 

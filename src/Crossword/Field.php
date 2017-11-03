@@ -2,8 +2,8 @@
 
 namespace Crossword;
 
-use\Crossword\Line\Column;
-use\Crossword\Line\Row;
+use \Crossword\Line\Column;
+use \Crossword\Line\Row;
 
 /**
  * Поле кроссворда
@@ -29,6 +29,13 @@ class Field
      * @var Row
      */
     protected $row;
+
+    /**
+     * List of words which started in field (for render number)
+     *
+     * @var Word[]
+     */
+    protected $wordsStarted = [];
 
     /**
      * @param Column $col
@@ -146,4 +153,19 @@ class Field
         $this->isBlock = (bool) $value;
     }
 
+    /**
+     * @return Word[]
+     */
+    public function getWordsStarted()
+    {
+        return $this->wordsStarted;
+    }
+
+    /**
+     * @param array $wordsStarted
+     */
+    public function addWordsStarted($wordsStarted)
+    {
+        $this->wordsStarted[] = $wordsStarted;
+    }
 }

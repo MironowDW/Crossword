@@ -2,27 +2,24 @@
 
 require_once './autoloader.php';
 
-// Список слов для генерации кроссворда
+// List of words for crossword generation
 $words = array(
-    'Кадр',
-    'Дом',
-    'Окно',
-    'Монитор',
-    'Слово',
-    'Кружка',
-    'Сосед',
-    'Стул',
-    'Папка',
-    'Труба',
-    'Город',
-    'Дорога',
-    'Клавиатура',
-    'Земля',
-    'Ручка',
+    'keyboard' => [
+        'number' => 1,
+        'question' => 'Question 1',
+    ],
+    'leader' => [
+        'number' => 2,
+        'question' => 'Question 2',
+    ],
+    'apple' => [
+        'number' => 3,
+        'question' => 'Question 3',
+    ],
 );
 
-// Создаем новый кроссворд 15*15
-$crossword = new \Crossword\Crossword(15, 15, $words);
-$crossword->generate(\Crossword\Generate\Generate::TYPE_BASE_LINE_COLUMN);
+// Create new crossword
+$crossword = new \Crossword\Crossword(10, 10, $words);
+$crossword->generate(\Crossword\Generate\Generate::TYPE_BASE_LINE_COLUMN, true);
 
 return $crossword;
