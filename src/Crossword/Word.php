@@ -24,7 +24,7 @@ class Word
     protected $params;
 
     /**
-     * @var Row|null
+     * @var Row|null|\Crossword\Line\Row[]
      */
     protected $rows = null;
 
@@ -90,7 +90,7 @@ class Word
     }
 
     /**
-     * @return Row|null
+     * @return Row|null|\Crossword\Line\Row[]
      */
     public function getRows()
     {

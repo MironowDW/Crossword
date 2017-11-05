@@ -221,7 +221,11 @@ class Crossword
         $this->originWords = $originWords;
     }
 
-    public function toArray()
+    /**
+     * @deprecated @see $this->toArray()
+     * @return array
+     */
+    public function _toArray()
     {
         $array = [];
         $index = 0;
@@ -231,6 +235,23 @@ class Crossword
             }
 
             $index++;
+        }
+
+        return $array;
+    }
+
+    public function toArray()
+    {
+        $array = [];
+
+        foreach ($this->getRows() as $rowIndex => $row) {
+            foreach ($row->getFields() as $fieldIndex => $field) {
+                if (!$field->getChar()) {
+                    continue;
+                }
+
+                $array[$rowIndex][$fieldIndex] = $field->getChar();
+            }
         }
 
         return $array;

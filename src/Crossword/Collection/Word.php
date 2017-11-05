@@ -32,7 +32,8 @@ class Word extends Collection
      * @param bool $most Наибольшее слово
      * @return bool|\Crossword\Word
      */
-    public function getByMask($mask, $most = false) {
+    public function getByMask($mask, $most = false)
+    {
         $words = new Word();
         foreach($this as $word) {
             if($word->inMask($mask)) {
@@ -70,7 +71,8 @@ class Word extends Collection
     /**
      * @return bool|\Crossword\Word Случайное слово из коллекции
      */
-    public function getRandom() {
+    public function getRandom()
+    {
         $words = $this->getWords();
         if(!empty($words)) {
             $randKey = array_rand($words);
@@ -80,10 +82,10 @@ class Word extends Collection
     }
 
     /**
-     * @return array
+     * @return \Crossword\Word[]
      */
-    public function getWords() {
+    public function getWords()
+    {
         return $this->items;
     }
-
 }

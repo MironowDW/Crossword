@@ -3,51 +3,82 @@
 <head>
     <title>Кроссворд</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+    <style>
+        td {
+            text-align: center;
+        }
+        td input {
+            width: 20px;
+            height: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <?php $crossword = require './generate.php'; ?>
 
     <table>
-        <?php foreach($crossword->getRows() as $row): ?>
-            <tr>
-                <?php foreach($row->getFields() as $field): ?>
+        <form action="/check.php" method="post">
+            <?php foreach($crossword->getRows() as $rowIndex => $row): ?>
+                <tr>
+                    <?php foreach($row->getFields() as $fieldIndex => $field): ?>
+                        <td>
+                            <?php if ($field->getChar()) { ?>
+                                <input type="text"
+                                       maxlength="1"
+                                       name="crossword[<?php echo $rowIndex ?>][<?php echo $fieldIndex ?>]">
+                            <?php } ?>
 
-                    <td class="<?php echo $field->getChar() ? 'filled' : 'empty' ?>">
-                        <?php
-                        if ($field->getChar()) {
-                            echo $field->getChar();
-                        }
+                            <?php
+                            foreach ($field->getWordsStarted() as $word) {
+                                echo $word->getParams()['number'];
+                            }
+                            ?>
+                        </td>
+                    <?php endforeach; ?>
+                </tr>
+            <?php endforeach; ?>
 
-                        foreach ($field->getWordsStarted() as $word) {
-                            echo $word->getParams()['number'];
-                        }
-                        ?>
-                    </td>
-                <?php endforeach; ?>
-            </tr>
-        <?php endforeach; ?>
+            <button type="submit">Check crossword</button>
+        </form>
     </table>
 
     <ul>
         <?php foreach ($crossword->getWords() as $word) { ?>
             <li>
-                <?php echo $word->getWord() ?> - <?php echo $word->getParams()['question'] ?>
+                <?php echo $word->getParams()['question'] ?>
             </li>
         <?php } ?>
     </ul>
 
 </body>
 
-<style>
-    td {
-        width: 20px;
-        height: 20px;
-        text-align: center;
-    }
-    td.filled {
-        border: 1px black solid;
-        background-color: #cfcfcf;
-    }
-</style>
+<script>
+    document.querySelector('form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "check.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(serialize(document.forms[0]));
+        xhttp.onreadystatechange = function() {
+            if (this.readyState != 4) {
+                return;
+            }
+
+            if (this.status != 200) {
+                alert('Error: ' + this.responseText);
+            }
+
+            if (this.status == 200) {
+                alert(JSON.parse(this.responseText).is_success ? 'Success' : 'Fail');
+            }
+        };
+    });
+
+    // https://code.google.com/archive/p/form-serialize/downloads
+    function serialize(form){if(!form||form.nodeName!=="FORM"){return }var i,j,q=[];for(i=form.elements.length-1;i>=0;i=i-1){if(form.elements[i].name===""){continue}switch(form.elements[i].nodeName){case"INPUT":switch(form.elements[i].type){case"text":case"hidden":case"password":case"button":case"reset":case"submit":q.push(form.elements[i].name+"="+encodeURIComponent(form.elements[i].value));break;case"checkbox":case"radio":if(form.elements[i].checked){q.push(form.elements[i].name+"="+encodeURIComponent(form.elements[i].value))}break;case"file":break}break;case"TEXTAREA":q.push(form.elements[i].name+"="+encodeURIComponent(form.elements[i].value));break;case"SELECT":switch(form.elements[i].type){case"select-one":q.push(form.elements[i].name+"="+encodeURIComponent(form.elements[i].value));break;case"select-multiple":for(j=form.elements[i].options.length-1;j>=0;j=j-1){if(form.elements[i].options[j].selected){q.push(form.elements[i].name+"="+encodeURIComponent(form.elements[i].options[j].value))}}break}break;case"BUTTON":switch(form.elements[i].type){case"reset":case"submit":case"button":q.push(form.elements[i].name+"="+encodeURIComponent(form.elements[i].value));break}break}}return q.join("&")};
+</script>
 
 </html>

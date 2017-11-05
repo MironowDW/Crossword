@@ -47,7 +47,7 @@ abstract class Line
     protected $type = null;
 
     /**
-     * @var array
+     * @var array|Field[]
      */
     protected $fields = array();
 
@@ -322,7 +322,7 @@ abstract class Line
     }
 
     /**
-     * @return array
+     * @return array|Field[]
      */
     public function getFields()
     {

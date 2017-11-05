@@ -49,8 +49,8 @@ class CrosswordTest extends \PHPUnit_Framework_TestCase
         ];
 
         $this->assertTrue(
-            in_array($crossword->toArray(), $variants),
-            'Wrong crossword generated: ' . var_export($crossword->toArray(), true)
+            in_array($crossword->_toArray(), $variants),
+            'Wrong crossword generated: ' . var_export($crossword->_toArray(), true)
         );
     }
 
@@ -78,8 +78,8 @@ class CrosswordTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $expected,
-            $crossword->toArray(),
-            'Wrong crossword generated: ' . var_export($crossword->toArray(), true)
+            $crossword->_toArray(),
+            'Wrong crossword generated: ' . var_export($crossword->_toArray(), true)
         );
     }
 
@@ -106,8 +106,8 @@ class CrosswordTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $expected,
-            $crossword->toArray(),
-            'Wrong crossword generated: ' . var_export($crossword->toArray(), true)
+            $crossword->_toArray(),
+            'Wrong crossword generated: ' . var_export($crossword->_toArray(), true)
         );
     }
 
